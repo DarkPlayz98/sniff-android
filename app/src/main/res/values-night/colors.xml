@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode: same brand, light text on a near-black wash -->
+    <color name="ink">#F2EFEA</color>
+    <color name="paper">#121212</color>
+    <color name="muted">#A6A29C</color>
+    <color name="body">#DCD8D2</color>
+    <color name="placeholder">#7D7973</color>
+    <color name="line">#24FFFFFF</color>
+    <color name="accent">#FF5A1F</color>
+    <color name="danger">#FF6F61</color>
+    <color name="warn">#F2AE45</color>
+    <color name="safe">#55C98F</color>
+    <color name="white">#FFFFFF</color>
+    <color name="on_pill">#141414</color>
+</resources>
