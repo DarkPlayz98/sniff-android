@@ -19,21 +19,26 @@ android {
         versionName = appVersion
     }
 
-    signingConfigs {
-        create("release") {
-            // Private key: restored in CI from repo secret SNIFF_KEYSTORE_B64; password from secret SNIFF_KEYSTORE_PASSWORD.
-            storeFile = rootProject.file("keystore/release.p12")
-            storeType = "pkcs12"
-            storePassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
-            keyAlias = "sniff"
-            keyPassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
+    // Releases are built UNSIGNED in CI and signed offline by the maintainer (the key never lives in this repo).
+    // If a local keystore/release.p12 exists (with SNIFF_KEYSTORE_PASSWORD set), Gradle signs with it instead.
+    val releaseKeystore = rootProject.file("keystore/release.p12")
+    val hasReleaseKeystore = releaseKeystore.exists() && !System.getenv("SNIFF_KEYSTORE_PASSWORD").isNullOrEmpty()
+    if (hasReleaseKeystore) {
+        signingConfigs {
+            create("release") {
+                storeFile = releaseKeystore
+                storeType = "pkcs12"
+                storePassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
+                keyAlias = "sniff"
+                keyPassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
+            }
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("release")
+            if (hasReleaseKeystore) signingConfig = signingConfigs.getByName("release")
         }
     }
 
