@@ -2,142 +2,331 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingStart="24dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="40dp">
 
+        <!-- header: mark + serif wordmark (.x-top) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_mark" />
             <TextView
+                style="@style/SniffSay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/app_name"
-                android:textColor="@color/ink"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="10dp"
+                android:text="@string/wordmark"
+                android:textSize="32sp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/tagline"
-            android:textColor="@color/muted"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="@string/status_off"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/toggle"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_button"
-            android:stateListAnimator="@null"
-            android:text="@string/turn_on"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-
+        <!-- greeting (.sn-hello) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_card"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:layout_width="match_parent"
+            android:layout_marginTop="36dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_avatar"
+                android:contentDescription="@null"
+                android:elevation="3dp"
+                android:src="@drawable/ic_mark_round" />
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/what_sniff_reads"
-                android:textColor="@color/ink"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="3dp"
-                android:text="@string/privacy_body"
-                android:textColor="@color/ink"
-                android:textSize="14sp" />
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bubble"
+                android:orientation="vertical"
+                android:paddingStart="18dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="16dp">
+                <TextView
+                    android:id="@+id/say"
+                    style="@style/SniffSay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hello_title" />
+                <TextView
+                    android:id="@+id/say_body"
+                    style="@style/SniffBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/hello_body" />
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="@string/check_title"
-            android:textColor="@color/ink"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
+        <!-- big paste box (.x-field / .x-ta) -->
         <EditText
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_card"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_field"
+            android:fontFamily="sans-serif"
             android:gravity="top|start"
             android:hint="@string/check_hint"
             android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:minLines="4"
-            android:padding="14dp"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:minHeight="150dp"
+            android:paddingStart="22dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="20dp"
             android:textColor="@color/ink"
-            android:textSize="15sp" />
+            android:textColorHint="@color/placeholder"
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/check"
+            style="@style/SniffPillDark"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/check_button" />
+
+        <Button
+            android:id="@+id/paste"
+            style="@style/SniffPillGlass"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_outline_button"
-            android:stateListAnimator="@null"
-            android:text="@string/check_button"
-            android:textAllCaps="false"
-            android:textColor="@color/ink"
-            android:textSize="16sp" />
+            android:text="@string/paste_button" />
 
-        <TextView
-            android:id="@+id/result"
+        <!-- verdict (.sn-verdict) -->
+        <LinearLayout
+            android:id="@+id/verdict"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:lineSpacingExtra="3dp"
-            android:textColor="@color/ink"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:layout_marginTop="24dp"
+            android:gravity="top"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_avatar"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_mark_round" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_bubble"
+                android:orientation="horizontal">
+                <View
+                    android:id="@+id/v_accent"
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@color/danger" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="18dp"
+                    android:paddingBottom="16dp">
+                    <TextView
+                        android:id="@+id/v_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:letterSpacing="-0.025"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/v_plain"
+                        style="@style/SniffBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/v_flags_h"
+                        style="@style/SniffCaption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/red_flags" />
+                    <TextView
+                        android:id="@+id/v_flags"
+                        style="@style/SniffBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:id="@+id/v_todo_h"
+                        style="@style/SniffCaption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/what_to_do" />
+                    <TextView
+                        android:id="@+id/v_todo"
+                        style="@style/SniffBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                    <TextView
+                        android:id="@+id/v_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:textColor="@color/muted"
+                        android:textSize="12.5sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- protection card (.x-card glass) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_glass"
+            android:orientation="vertical"
+            android:padding="22dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <View
+                    android:id="@+id/status_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/dot" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/protection_title"
+                    android:textColor="@color/ink"
+                    android:textSize="17sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/status"
+                style="@style/SniffBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+            <Button
+                android:id="@+id/toggle"
+                style="@style/SniffPillDark"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/turn_on"
+                android:textSize="15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/line" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/auto_close"
+                        android:textColor="@color/ink"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/auto_close_sub"
+                        android:textColor="@color/muted"
+                        android:textSize="13sp" />
+                </LinearLayout>
+                <Switch
+                    android:id="@+id/auto_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:checked="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- privacy (.sn-priv) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:text="@string/privacy_line"
+            android:textColor="@color/muted"
+            android:textSize="12.5sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/bg_glass"
+            android:orientation="vertical"
+            android:padding="22dp">
+            <TextView
+                style="@style/SniffCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/what_sniff_reads" />
+            <TextView
+                style="@style/SniffBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/privacy_body"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/web"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:autoLink="web"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="@string/web_link"
             android:textColor="@color/muted"
-            android:textColorLink="@color/ink"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 </ScrollView>
