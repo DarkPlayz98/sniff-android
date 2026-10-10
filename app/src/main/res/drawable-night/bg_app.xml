@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark mode wash: near black with faint warm / lilac / blue blooms -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><shape android:shape="rectangle"><solid android:color="#121212" /></shape></item>
+    <item><shape android:shape="rectangle"><gradient android:type="radial" android:gradientRadius="320dp" android:centerX="0.15" android:centerY="0.12" android:startColor="#26FF8A5C" android:endColor="#00FF8A5C" /></shape></item>
+    <item><shape android:shape="rectangle"><gradient android:type="radial" android:gradientRadius="300dp" android:centerX="0.9" android:centerY="0.28" android:startColor="#1F8E7CF0" android:endColor="#008E7CF0" /></shape></item>
+    <item><shape android:shape="rectangle"><gradient android:type="radial" android:gradientRadius="360dp" android:centerX="0.75" android:centerY="0.88" android:startColor="#1F5C9CE6" android:endColor="#005C9CE6" /></shape></item>
+</layer-list>
