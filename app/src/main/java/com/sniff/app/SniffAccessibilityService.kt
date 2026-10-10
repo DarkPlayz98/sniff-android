@@ -28,6 +28,8 @@ class SniffAccessibilityService : AccessibilityService() {
 
     companion object {
         @Volatile var running = false
+        /** The live service, so the app can show a sample warning ("Test Sniff"). */
+        @Volatile var instance: SniffAccessibilityService? = null
         private const val DEBOUNCE_MS = 260L          // quiet time after the last screen change
         private const val MAX_WAIT_MS = 800L           // ...but never wait longer than this while the screen keeps changing
         private const val SEEN_TTL_MS = 30 * 60 * 1000L
@@ -110,7 +112,7 @@ class SniffAccessibilityService : AccessibilityService() {
     // language-aware resources for banner text
     private var langCode: String? = null
     private var langCtx: Context? = null
-    private fun str(): Context {
+    @Synchronized private fun str(): Context {
         val code = Prefs.lang(this)
         if (code != langCode || langCtx == null) { langCtx = Lang.wrap(this); langCode = code }
         return langCtx!!
@@ -129,6 +131,22 @@ class SniffAccessibilityService : AccessibilityService() {
         Alerts.ensureChannel(this)
         SniffApi.warmUp()
         worker.post { refreshSkip(force = true) }
+        instance = this
+    }
+
+    /** Main thread. Shows a sample warning so the user can see what an alert looks like. */
+    fun showTestBanner(onTapText: String) {
+        if (destroyed || !::banner.isInitialized) return
+        val r = str()
+        val ctx = this
+        banner.show("sniff-test", r.getString(R.string.banner_link), r.getString(R.string.test_reason), true,
+            onTap = {
+                try {
+                    startActivity(Intent(ctx, MainActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        .putExtra(MainActivity.EXTRA_TEXT, onTapText))
+                } catch (_: Throwable) {}
+            })
     }
 
     private fun isSkipped(pkg: String) = pkg == packageName || pkg in SKIP_PACKAGES || pkg in extraSkip
@@ -180,6 +198,7 @@ class SniffAccessibilityService : AccessibilityService() {
     override fun onDestroy() {
         running = false
         destroyed = true
+        if (instance === this) instance = null
         main.removeCallbacksAndMessages(null)
         if (::banner.isInitialized) banner.release()
         if (::worker.isInitialized) worker.removeCallbacksAndMessages(null)
@@ -212,23 +231,23 @@ class SniffAccessibilityService : AccessibilityService() {
                     // MessagingStyle: no sender = a message the user wrote. Never warn about the user's own words.
                     if (senderCs == null && !hasPerson) continue
                     val s = senderCs?.toString()?.trim()?.ifEmpty { null } ?: title
-                    if (t.isNotEmpty()) out.add(if (s.isNotEmpty()) "From $s:\n$t" else t)
+                    if (t.isNotEmpty()) out.add((if (s.isNotEmpty()) "From $s:\n$t" else t).take(2000))
                 }
                 if (out.isEmpty()) return out
             }
             if (out.isEmpty()) {
                 val big = ex.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()?.trim()
                 val txt = big?.ifEmpty { null } ?: ex.getCharSequence(Notification.EXTRA_TEXT)?.toString()?.trim()
-                if (!txt.isNullOrEmpty()) out.add(if (title.isNotEmpty()) "From $title:\n$txt" else txt)
+                if (!txt.isNullOrEmpty()) out.add((if (title.isNotEmpty()) "From $title:\n$txt" else txt).take(2000))
                 ex.getCharSequenceArray(Notification.EXTRA_TEXT_LINES)?.takeLast(4)?.forEach { l ->
                     val s = l?.toString()?.trim()
-                    if (!s.isNullOrEmpty()) out.add(s)
+                    if (!s.isNullOrEmpty()) out.add(s.take(2000))
                 }
             }
         }
         if (out.isEmpty() && n == null) {
             val t = event.text?.joinToString("\n") { it?.toString().orEmpty() }?.trim()
-            if (!t.isNullOrEmpty()) out.add(t)
+            if (!t.isNullOrEmpty()) out.add(t.take(2000))
         }
         return out
     }
@@ -472,7 +491,7 @@ class SniffAccessibilityService : AccessibilityService() {
                 .putExtra(BlockedActivity.EXTRA_REASON, reason)
                 .putExtra(BlockedActivity.EXTRA_REAL, official))
         } catch (_: Throwable) {
-            alert("url:$host", scam = true, hasLink = true, reason = reason, text = "https://$host", pkg = "", host = host, force = true)
+            if (!destroyed) worker.post { alert("url:$host", scam = true, hasLink = true, reason = reason, text = "https://$host", pkg = "", host = host, force = true) }
         }
     }
 
