@@ -161,8 +161,9 @@ object ScamRules {
     fun hostOf(url: String): String {
         var s = url.lowercase(Locale.ROOT)
         s = s.substringAfter("://", s)
-        s = s.substringBefore('/').substringBefore('?').substringBefore('#').substringBefore(':')
-        s = s.substringAfter('@')
+        s = s.substringBefore('/').substringBefore('?').substringBefore('#')
+        s = s.substringAfterLast('@')            // user:pass@host -> host (must happen before the port is cut)
+        s = s.substringBefore(':').trimEnd('.')
         return s.removePrefix("www.")
     }
 
