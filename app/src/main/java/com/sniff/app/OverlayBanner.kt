@@ -28,8 +28,7 @@ import kotlin.math.abs
 /**
  * Minimal "liquid glass" warning banner at the top of the screen.
  * Translucent white card (24dp radius), hairline white edge, soft shadow, small Sniff mark,
- * one bold line + one muted reason, coloured accent dot. Real blur behind on Android 12+
- * when the device supports cross-window blur; otherwise a more opaque frosted white.
+ * one bold line + one muted reason, coloured accent dot. No blur of the screen behind it.
  * Slides/fades in, auto-dismisses after 6 s, swipe up or tap X to dismiss, tap for details.
  * Uses TYPE_ACCESSIBILITY_OVERLAY (no extra permission).
  */
@@ -43,14 +42,12 @@ class OverlayBanner(private val ctx: Context) {
     private var currentKey: String? = null
     private var onTap: (() -> Unit)? = null
     private val hide = Runnable { dismiss(animated = true) }
+    @Volatile private var released = false
 
     private fun dp(v: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, ctx.resources.displayMetrics)
     private fun dpi(v: Float) = dp(v).toInt()
 
     val showingKey: String? get() = currentKey
-
-    private fun blurSupported(): Boolean =
-        Build.VERSION.SDK_INT >= 31 && try { wm.isCrossWindowBlurEnabled } catch (_: Throwable) { false }
 
     private fun dot(scam: Boolean) = GradientDrawable().apply {
         shape = GradientDrawable.OVAL
@@ -62,7 +59,9 @@ class OverlayBanner(private val ctx: Context) {
      * [onFail] runs if the overlay can't be added, so the caller can fall back to a notification.
      */
     fun show(key: String, title: String, reason: String, scam: Boolean, onTap: () -> Unit, onFail: () -> Unit = {}) {
+        if (released) return
         handler.post {
+            if (released) return@post
             this.onTap = onTap
             if (root != null && currentKey == key) {
                 titleView?.text = title
@@ -76,7 +75,10 @@ class OverlayBanner(private val ctx: Context) {
             try {
                 addBanner(key, title, reason, scam)
             } catch (_: Throwable) {
-                root = null; currentKey = null
+                // BadTokenException / service gone: never leave a half-added window behind
+                root?.let { v -> try { wm.removeViewImmediate(v) } catch (_: Throwable) {} }
+                root = null; currentKey = null; titleView = null; reasonView = null; dotView = null
+                this.onTap = null
                 onFail()
             }
         }
@@ -144,7 +146,7 @@ class OverlayBanner(private val ctx: Context) {
 
         card.addView(ImageView(ctx).apply {
             setImageResource(R.drawable.ic_close)
-            contentDescription = "Dismiss"
+            contentDescription = try { Lang.wrap(ctx).getString(R.string.dismiss) } catch (_: Throwable) { "Dismiss" }
             scaleType = ImageView.ScaleType.CENTER
             setOnClickListener { dismiss(animated = true) }
         }, LinearLayout.LayoutParams(dpi(40f), dpi(40f)))
@@ -209,8 +211,8 @@ class OverlayBanner(private val ctx: Context) {
 
         card.alpha = 0f
         card.translationY = -dp(28f)
+        root = frame          // set first so a failed add is cleaned up by the caller
         wm.addView(frame, lp)
-        root = frame
         currentKey = key
         titleView = t; reasonView = r; dotView = d
         card.animate().alpha(1f).translationY(0f).setDuration(280).setInterpolator(DecelerateInterpolator(1.6f)).start()
@@ -222,18 +224,27 @@ class OverlayBanner(private val ctx: Context) {
         return if (id > 0) ctx.resources.getDimensionPixelSize(id) else dpi(24f)
     }
 
+    /** Call from the service's onDestroy: removes the banner and drops every pending show. */
+    fun release() {
+        released = true
+        handler.removeCallbacksAndMessages(null)
+        if (Looper.myLooper() == Looper.getMainLooper()) dismiss(false) else handler.post { dismiss(false) }
+    }
+
     fun dismiss(animated: Boolean = false) {
         handler.removeCallbacks(hide)
         val v = root ?: return
-        root = null; currentKey = null; titleView = null; reasonView = null; dotView = null
+        root = null; currentKey = null; titleView = null; reasonView = null; dotView = null; onTap = null
         val card = (v as? FrameLayout)?.getChildAt(0)
-        if (animated && card != null && v.isAttachedToWindow) {
+        if (animated && !released && card != null && v.isAttachedToWindow) {
+            card.animate().cancel()
             card.animate().alpha(0f).translationY(-dp(36f)).setDuration(180)
                 .setInterpolator(AccelerateInterpolator())
                 .withEndAction { try { wm.removeView(v) } catch (_: Throwable) {} }
                 .start()
         } else {
-            try { wm.removeView(v) } catch (_: Throwable) {}
+            card?.animate()?.cancel()
+            try { wm.removeViewImmediate(v) } catch (_: Throwable) {}
         }
     }
 
