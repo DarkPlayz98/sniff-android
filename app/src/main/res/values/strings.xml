@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sniff</string>
+    <string name="service_label">Sniff scam warnings</string>
+    <string name="service_summary">Warns you when a scam link or message is on your screen.</string>
+    <string name="service_description">Sniff reads the text that is visible on your screen so it can warn you about scam links and messages (fake KYC, bank, parcel, electricity bill, prize and UPI collect scams). It skips password fields and banking/UPI apps. Nothing is saved on your phone or on a server. Only when a message looks risky or contains a new link is that piece of text sent to Sniff\'s checker, and it is not stored.</string>
+    <string name="tagline">Scam warnings while you use your phone.</string>
+    <string name="turn_on">Turn on screen protection</string>
+    <string name="turn_off">Manage screen protection</string>
+    <string name="status_on">Screen protection: On</string>
+    <string name="status_off">Screen protection: Off</string>
+    <string name="what_sniff_reads">What Sniff reads</string>
+    <string name="privacy_body">• Sniff reads the text on your screen, like ChatGPT-style assistants do, using Android\'s Accessibility setting.\n• It never reads password fields and ignores banking and UPI apps.\n• Nothing is stored. Most checks happen on your phone.\n• Only when a message looks risky or has a new link is that text (never screenshots) sent to Sniff\'s checker for a second opinion. It is not saved.\n• If something looks like a scam you get a \"Don\'t click this link\" alert.</string>
+    <string name="dialog_title">Turn on Sniff</string>
+    <string name="dialog_body">On the next screen, tap \"Sniff scam warnings\" (it may be under \"Installed apps\" or \"Downloaded apps\") and switch it on.\n\nSniff reads visible text only to spot scams. It skips passwords and banking/UPI apps, and stores nothing.</string>
+    <string name="dialog_ok">Open settings</string>
+    <string name="dialog_cancel">Not now</string>
+    <string name="check_title">Check a message</string>
+    <string name="check_hint">Paste a message or link here</string>
+    <string name="check_button">Check</string>
+    <string name="checking">Checking…</string>
+    <string name="web_link">Open Sniff on the web: https://sniff-orpin.vercel.app</string>
+    <string name="channel_name">Scam warnings</string>
+    <string name="channel_desc">Alerts when a scam link or message is on your screen</string>
+</resources>
