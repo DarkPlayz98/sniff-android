@@ -114,4 +114,9 @@
     <string name="what_sniff_reads">Sniff क्या पढ़ता है</string>
     <string name="privacy_line">Sniff AI से जाँचा गया। आपके मैसेज कभी सर्वर पर सेव नहीं होते।</string>
     <string name="privacy_body">Sniff Android की Accessibility सेटिंग से आपकी स्क्रीन और नए नोटिफ़िकेशन का टेक्स्ट पढ़ता है। यह पासवर्ड फ़ील्ड या कीबोर्ड कभी नहीं पढ़ता और बैंक व UPI ऐप को छोड़ देता है। हर नया मैसेज या लिंक Sniff AI से जाँचा जाता है और सर्वर पर सेव नहीं होता। चेतावनियाँ सिर्फ़ इसी फ़ोन की History में रहती हैं, जिन्हें आप कभी भी मिटा सकते हैं।</string>
+    <string name="disclosure_title">स्क्रीन सुरक्षा चालू करने से पहले</string>
+    <string name="disclosure_body"><b>Sniff क्या पढ़ता है:</b> आपकी स्क्रीन और नई सूचनाओं का टेक्स्ट, Android की Accessibility सेटिंग से, सिर्फ़ स्कैम मैसेज और फ़िशिंग लिंक पहचानने के लिए। पासवर्ड फ़ील्ड, कीबोर्ड और बैंक/UPI ऐप्स नहीं पढ़े जाते।\n\n<b>Sniff क्या करता है:</b> चेतावनी दिखाता है, और खतरनाक वेबसाइट को Back दबाकर बंद कर सकता है।\n\n<b>क्या भेजा जाता है:</b> सिर्फ़ संदिग्ध मैसेज का टेक्स्ट या लिंक, Sniff के अपने चेकर को। कुछ भी बेचा या साझा नहीं किया जाता। आपकी हिस्ट्री इसी फ़ोन पर रहती है।\n\nप्राइवेसी पॉलिसी: sniff-orpin.vercel.app</string>
+    <string name="disclosure_agree">सहमत हूँ, आगे बढ़ें</string>
+    <string name="disclosure_not_now">अभी नहीं</string>
+    <string name="disclosure_privacy">प्राइवेसी पॉलिसी</string>
 </resources>
