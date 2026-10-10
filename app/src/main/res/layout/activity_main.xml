@@ -42,6 +42,25 @@
             android:textColor="@color/muted"
             android:textSize="13.5sp" />
 
+        <!-- one big status pill: green Protected / amber Paused / red Off: tap to fix -->
+        <Button
+            android:id="@+id/status_pill"
+            style="@style/SniffPillDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:minHeight="60dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/finish_setup"
+            style="@style/SniffPillGlass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/finish_setup"
+            android:visibility="gone" />
+
         <!-- greeting (.sn-hello) -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,6 +138,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/paste_button" />
+
+        <Button
+            android:id="@+id/test_sniff"
+            style="@style/SniffPillGlass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/test_button" />
 
         <!-- verdict (.sn-verdict) -->
         <LinearLayout
