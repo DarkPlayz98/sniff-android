@@ -4,10 +4,50 @@
         <item name="android:colorPrimary">@color/ink</item>
         <item name="android:colorPrimaryDark">@color/paper</item>
         <item name="android:colorAccent">@color/ink</item>
-        <item name="android:windowBackground">@color/paper</item>
-        <item name="android:statusBarColor">@color/paper</item>
+        <item name="android:colorControlActivated">@color/ink</item>
+        <item name="android:windowBackground">@drawable/bg_app</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/paper</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColorPrimary">@color/ink</item>
+        <item name="android:textColorHint">@color/placeholder</item>
+    </style>
+    <style name="SniffSay">
+        <item name="android:fontFamily">@font/instrument_serif</item>
+        <item name="android:textColor">@color/ink</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="SniffBody">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/body</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+    </style>
+    <style name="SniffCaption">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/muted</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="SniffPillDark">
+        <item name="android:background">@drawable/bg_pill_dark</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">56dp</item>
+    </style>
+    <style name="SniffPillGlass">
+        <item name="android:background">@drawable/bg_pill_glass</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/ink</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">50dp</item>
     </style>
 </resources>
