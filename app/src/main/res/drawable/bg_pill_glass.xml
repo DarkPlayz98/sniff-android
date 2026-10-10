@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- .x-btn: white .6, white .8 border, pill -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"><shape android:shape="rectangle"><solid android:color="#E6FFFFFF" /><stroke android:width="1dp" android:color="#1F141414" /><corners android:radius="999dp" /></shape></item>
+    <item><shape android:shape="rectangle"><solid android:color="#99FFFFFF" /><stroke android:width="1dp" android:color="#1A141414" /><corners android:radius="999dp" /></shape></item>
+</selector>
