@@ -3,6 +3,7 @@ package com.sniff.app
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.Locale
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
 
@@ -62,7 +63,7 @@ object SniffApi {
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
                 setRequestProperty("Connection", "keep-alive")
-                setRequestProperty("User-Agent", "SniffAndroid/0.3")
+                setRequestProperty("User-Agent", "SniffAndroid/0.4")
             }
             val body = JSONObject().put("message", message.take(4000)).toString().toByteArray(Charsets.UTF_8)
             conn.setFixedLengthStreamingMode(body.size)
@@ -86,7 +87,7 @@ object SniffApi {
             val todo = ArrayList<String>()
             j.optJSONArray("what_to_do")?.let { a -> for (i in 0 until a.length()) todo.add(a.optString(i)) }
             Verdict(
-                verdict = j.optString("verdict", "LOOKS_SAFE").uppercase(),
+                verdict = j.optString("verdict", "LOOKS_SAFE").trim().uppercase(Locale.ROOT),
                 score = j.optInt("score", 0),
                 scamType = j.optString("scam_type", ""),
                 summary = j.optString("summary", ""),
