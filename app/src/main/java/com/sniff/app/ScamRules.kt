@@ -96,7 +96,7 @@ object ScamRules {
     )
 
     private val bankContext = listOf(
-        "kyc", "bank", "account", "a/c", "pan", "aadhaar", "aadhar", "upi", "netbanking", "net banking",
+        "kyc", "bank", "account", "a/c", "pan card", "pan number", "aadhaar", "aadhar", "upi", "netbanking", "net banking",
         "debit card", "credit card", "reward points", "yono", "sbi", "hdfc", "icici"
     )
 
@@ -181,7 +181,9 @@ object ScamRules {
         return lureWords.any { host.contains(it) }
     }
 
-    fun check(raw: String): Result {
+    fun check(raw0: String): Result {
+        // cap the work: Patterns.WEB_URL can get very slow on huge blobs of text
+        val raw = if (raw0.length > 4000) raw0.take(4000) else raw0
         val text = raw.lowercase(Locale.ROOT)
         val reasons = ArrayList<String>()
         var score = 0
