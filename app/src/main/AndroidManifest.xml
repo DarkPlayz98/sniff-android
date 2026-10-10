@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- "Allow alerts on top": lets "Test Sniff" (and warnings) show over other apps -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Android 11+ package visibility: show app names in History and find the home-screen app to ignore -->
     <queries>
@@ -50,6 +52,11 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SetupActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".HistoryActivity"
