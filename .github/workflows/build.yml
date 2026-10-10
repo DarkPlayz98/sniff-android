@@ -1,0 +1,60 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  VERSION: "0.1.0"
+  SNIFF_KEYSTORE_PASSWORD: "sniff-mvp-2026"   # MVP only: move to a repo secret before Play Store
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Build release APK
+        run: |
+          set -o pipefail
+          gradle --no-daemon --stacktrace assembleRelease -PappVersion=$VERSION 2>&1 | tee build.log
+          cp app/build/outputs/apk/release/app-release.apk "sniff-v$VERSION.apk"
+          ls -la *.apk
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Sniff v${{ env.VERSION }}
+          body: |
+            Sniff for Android (side-load). Download sniff-v${{ env.VERSION }}.apk, allow installs from your browser/files app, open Sniff and tap "Turn on screen protection".
+          files: sniff-v${{ env.VERSION }}.apk
+          make_latest: true
+
+      - name: Show errors
+        if: failure()
+        run: |
+          touch build.log
+          grep -nE "e: |error:|FAILED|What went wrong|Exception" build.log | head -80 || true
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ci-log-${{ github.run_number }}
+          name: CI log ${{ github.run_number }}
+          prerelease: true
+          files: build.log
