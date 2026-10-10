@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="24dp">
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_avatar"
+            android:contentDescription="@null"
+            android:elevation="3dp"
+            android:src="@drawable/ic_mark_round" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_glass"
+            android:orientation="vertical"
+            android:padding="24dp">
+            <TextView
+                style="@style/SniffSay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/blocked_title"
+                android:textSize="34sp" />
+            <TextView
+                android:id="@+id/b_domain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_pill_glass"
+                android:fontFamily="monospace"
+                android:paddingStart="14dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/danger"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/b_reason"
+                style="@style/SniffBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:textSize="16sp" />
+            <TextView
+                style="@style/SniffBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Don\'t enter a password, OTP, PIN or card number there. If you already did, call your bank or 1930 now."
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/b_real"
+            style="@style/SniffPillDark"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/go_real" />
+        <Button
+            android:id="@+id/b_safe"
+            style="@style/SniffPillGlass"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/go_safe" />
+    </LinearLayout>
+</ScrollView>
