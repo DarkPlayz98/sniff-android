@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val appVersion = (project.findProperty("appVersion") as String?) ?: "0.4.0"
+val appVersion = (project.findProperty("appVersion") as String?) ?: "0.5.0"
 val parts = appVersion.split(".").map { it.toIntOrNull() ?: 0 } + listOf(0, 0, 0)
 val appVersionCode = parts[0] * 10000 + parts[1] * 100 + parts[2]
 
@@ -21,12 +21,12 @@ android {
 
     signingConfigs {
         create("release") {
-            // MVP ONLY: committed keystore + password from env. Move to repo secrets before any Play Store upload.
-            storeFile = rootProject.file("keystore/sniff-release.jks")
+            // Private key: restored in CI from repo secret SNIFF_KEYSTORE_B64; password from secret SNIFF_KEYSTORE_PASSWORD.
+            storeFile = rootProject.file("keystore/release.p12")
             storeType = "pkcs12"
-            storePassword = System.getenv("SNIFF_KEYSTORE_PASSWORD") ?: "sniff-mvp-2026"
+            storePassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
             keyAlias = "sniff"
-            keyPassword = System.getenv("SNIFF_KEYSTORE_PASSWORD") ?: "sniff-mvp-2026"
+            keyPassword = System.getenv("SNIFF_KEYSTORE_PASSWORD")
         }
     }
 
