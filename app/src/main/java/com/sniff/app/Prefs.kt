@@ -32,6 +32,10 @@ object Prefs {
         return true
     }
 
+    /** First-run setup screen was shown (it then only comes back from the home screen). */
+    fun setupSeen(ctx: Context): Boolean = sp(ctx).getBoolean("setup_seen", false)
+    fun markSetupSeen(ctx: Context) { sp(ctx).edit().putBoolean("setup_seen", true).apply() }
+
     // ---------- pause ----------
     fun pausedUntil(ctx: Context): Long = sp(ctx).getLong(PAUSED_UNTIL, 0L)
     fun isPaused(ctx: Context): Boolean = pausedUntil(ctx) > System.currentTimeMillis()
