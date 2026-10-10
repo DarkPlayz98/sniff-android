@@ -2,8 +2,13 @@ name: Build APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, v050]
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "build = build unsigned APK as prerelease"
+        required: false
+        default: build
 
 permissions:
   contents: write
@@ -17,39 +22,61 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Decide mode
+        id: mode
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ] && [ -f "dist/sniff-v$VERSION.apk" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"; echo "Mode: publish signed dist/sniff-v$VERSION.apk"
+          elif [ "${{ github.ref_name }}" = "main" ]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"; echo "skip=true" >> "$GITHUB_OUTPUT"; echo "Mode: nothing to publish on main"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"; echo "Mode: build unsigned"
+          fi
+
       - uses: actions/setup-java@v4
+        if: steps.mode.outputs.publish != 'true' && steps.mode.outputs.skip != 'true'
         with:
           distribution: temurin
           java-version: "17"
 
       - uses: gradle/actions/setup-gradle@v4
+        if: steps.mode.outputs.publish != 'true' && steps.mode.outputs.skip != 'true'
         with:
           gradle-version: "8.9"
 
-      - name: Restore signing key
-        env:
-          SNIFF_KEYSTORE_B64: ${{ secrets.SNIFF_KEYSTORE_B64 }}
-        run: |
-          if [ -z "$SNIFF_KEYSTORE_B64" ]; then echo "Missing repo secret SNIFF_KEYSTORE_B64" | tee build.log; exit 1; fi
-          mkdir -p keystore
-          echo "$SNIFF_KEYSTORE_B64" | base64 -d > keystore/release.p12
-
-      - name: Build release APK
-        env:
-          SNIFF_KEYSTORE_PASSWORD: ${{ secrets.SNIFF_KEYSTORE_PASSWORD }}
+      - name: Build unsigned release APK
+        if: steps.mode.outputs.publish != 'true' && steps.mode.outputs.skip != 'true'
         run: |
           set -o pipefail
           gradle --no-daemon --stacktrace assembleRelease -PappVersion=$VERSION 2>&1 | tee build.log
-          cp app/build/outputs/apk/release/app-release.apk "sniff-v$VERSION.apk"
-          ls -la *.apk
+          ls -la app/build/outputs/apk/release/
+          cp app/build/outputs/apk/release/app-release-unsigned.apk app-release-unsigned.apk
+
+      - name: Publish unsigned prerelease
+        if: steps.mode.outputs.publish != 'true' && steps.mode.outputs.skip != 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: unsigned-v${{ env.VERSION }}
+          name: Unsigned build v${{ env.VERSION }} (not for install)
+          prerelease: true
+          target_commitish: ${{ github.sha }}
+          files: app-release-unsigned.apk
+
+      - name: Publish signed release
+        if: steps.mode.outputs.publish == 'true'
+        run: cp "dist/sniff-v$VERSION.apk" "sniff-v$VERSION.apk"
 
       - name: Publish release
+        if: steps.mode.outputs.publish == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION }}
           name: Sniff v${{ env.VERSION }}
+          target_commitish: ${{ github.sha }}
           body: |
             Sniff for Android (side-load). Download sniff-v${{ env.VERSION }}.apk, allow installs from your browser/files app, open Sniff and tap "Turn on screen protection".
+
+            v0.5.0 uses a new signing key: if you have an older Sniff installed, uninstall it once, then install v0.5.0.
           files: sniff-v${{ env.VERSION }}.apk
           make_latest: true
 
