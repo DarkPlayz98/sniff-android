@@ -62,7 +62,7 @@ object SniffApi {
                 doOutput = true
                 setRequestProperty("Content-Type", "application/json")
                 setRequestProperty("Connection", "keep-alive")
-                setRequestProperty("User-Agent", "SniffAndroid/0.2")
+                setRequestProperty("User-Agent", "SniffAndroid/0.3")
             }
             val body = JSONObject().put("message", message.take(4000)).toString().toByteArray(Charsets.UTF_8)
             conn.setFixedLengthStreamingMode(body.size)
