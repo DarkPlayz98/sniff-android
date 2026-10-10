@@ -113,6 +113,28 @@ class SetupActivity : Activity() {
     companion object {
         /** Deep link straight to Sniff's switch where the phone supports it, else the Accessibility list. */
         fun openAccessibility(a: Activity) {
+            if (!Prefs.a11yConsent(a)) { showDisclosure(a); return }
+            launchAccessibility(a)
+        }
+
+        /** Prominent disclosure + consent shown before Sniff ever opens Accessibility settings. */
+        fun showDisclosure(a: Activity) {
+            if (a.isFinishing) return
+            try {
+                android.app.AlertDialog.Builder(a)
+                    .setTitle(R.string.disclosure_title)
+                    .setMessage(R.string.disclosure_body)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.disclosure_agree) { _, _ -> Prefs.setA11yConsent(a, true); launchAccessibility(a) }
+                    .setNegativeButton(R.string.disclosure_not_now, null)
+                    .setNeutralButton(R.string.disclosure_privacy) { _, _ ->
+                        try { a.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://sniff-orpin.vercel.app"))) } catch (_: Throwable) {}
+                    }
+                    .show()
+            } catch (_: Throwable) {}
+        }
+
+        private fun launchAccessibility(a: Activity) {
             val cn = android.content.ComponentName(a, SniffAccessibilityService::class.java).flattenToString()
             val tries = ArrayList<Intent>()
             if (Build.VERSION.SDK_INT >= 33) tries.add(Intent("android.settings.ACCESSIBILITY_DETAILS_SETTINGS")
