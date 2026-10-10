@@ -6,8 +6,47 @@ import java.util.Locale
 /** Fast on-device checks. Ported from the idea behind the Sniff web app's quick rules. */
 object ScamRules {
 
-    data class Result(val score: Int, val reasons: List<String>, val urls: List<String>) {
+    /** [brand] = brand token a link impersonates (null if none); [badHost] = that impersonating / worst host. */
+    data class Result(
+        val score: Int,
+        val reasons: List<String>,
+        val urls: List<String>,
+        val brand: String? = null,
+        val badHost: String? = null
+    ) {
         val topReason: String get() = reasons.firstOrNull() ?: "This message looks risky."
+    }
+
+    /** brand token -> the real site to send people to instead of the fake one */
+    val officialSite: Map<String, String> = mapOf(
+        "sbi" to "https://sbi.co.in", "onlinesbi" to "https://www.onlinesbi.sbi", "yono" to "https://sbi.co.in",
+        "hdfc" to "https://www.hdfcbank.com", "icici" to "https://www.icicibank.com", "axis" to "https://www.axisbank.com",
+        "kotak" to "https://www.kotak.com", "paytm" to "https://paytm.com", "phonepe" to "https://www.phonepe.com",
+        "gpay" to "https://pay.google.com", "amazon" to "https://www.amazon.in", "flipkart" to "https://www.flipkart.com",
+        "indiapost" to "https://www.indiapost.gov.in", "india-post" to "https://www.indiapost.gov.in",
+        "fedex" to "https://www.fedex.com/en-in/home.html", "dhl" to "https://www.dhl.com/in-en/home.html",
+        "bluedart" to "https://www.bluedart.com", "delhivery" to "https://www.delhivery.com",
+        "airtel" to "https://www.airtel.in", "jio" to "https://www.jio.com", "uidai" to "https://uidai.gov.in",
+        "aadhaar" to "https://uidai.gov.in", "incometax" to "https://www.incometax.gov.in", "epfo" to "https://www.epfindia.gov.in",
+        "npci" to "https://www.npci.org.in", "bses" to "https://www.bsesdelhi.com", "tsspdcl" to "https://www.tssouthernpower.com",
+        "parivahan" to "https://parivahan.gov.in", "echallan" to "https://echallan.parivahan.gov.in",
+        "netflix" to "https://www.netflix.com", "whatsapp" to "https://www.whatsapp.com"
+    )
+
+    /** Big, well-known sites that never need an AI look when visited in a browser. */
+    private val wellKnown = listOf(
+        "google.com", "google.co.in", "youtube.com", "youtu.be", "wikipedia.org", "gstatic.com", "googleusercontent.com",
+        "instagram.com", "facebook.com", "x.com", "twitter.com", "linkedin.com", "reddit.com", "github.com",
+        "microsoft.com", "live.com", "office.com", "apple.com", "icloud.com", "yahoo.com", "bing.com", "duckduckgo.com",
+        "zomato.com", "swiggy.com", "myntra.com", "irctc.co.in", "gov.in", "nic.in", "sniff-orpin.vercel.app",
+        "chatgpt.com", "openai.com", "hotstar.com", "spotify.com", "telegram.org", "t.me", "wa.me"
+    )
+
+    /** True for a brand's official domain or a big well-known site: Sniff never auto-closes these. */
+    fun isOfficialHost(host: String): Boolean {
+        val h = host.lowercase(Locale.ROOT).removePrefix("www.")
+        if (brands.values.any { isOfficial(h, it) }) return true
+        return wellKnown.any { h == it || h.endsWith(".$it") }
     }
 
     private val suspiciousTlds = setOf(
@@ -147,12 +186,16 @@ object ScamRules {
         var score = 0
         val urls = extractUrls(raw)
         val hasBankContext = bankContext.any { text.contains(it) }
+        var brandHitName: String? = null
+        var badHost: String? = null
+        var worst = 0
 
         for (u in urls) {
             val host = hostOf(u)
             if (host.isEmpty()) continue
             val tld = host.substringAfterLast('.')
             val lu = u.lowercase(Locale.ROOT)
+            val before = score
 
             if (lu.substringBefore('?').endsWith(".apk") || lu.contains(".apk?") || lu.contains(".apk/")) {
                 score += 50; reasons.add("Link downloads an app file (.apk). Real banks never send these.")
@@ -173,6 +216,7 @@ object ScamRules {
                 if (brandHit(hostWords, brand) && !isOfficial(host, official)) {
                     score += 45
                     reasons.add(0, "\"$host\" pretends to be ${brand.uppercase(Locale.ROOT)} but is not its real website.")
+                    if (brandHitName == null) brandHitName = brand
                     break
                 }
             }
@@ -183,6 +227,7 @@ object ScamRules {
             if (host.startsWith("xn--") || host.contains(".xn--")) {
                 score += 30; reasons.add("Website name uses look-alike letters.")
             }
+            if (score - before > worst) { worst = score - before; badHost = host }
         }
 
         val urgent = urgency.any { text.contains(it) }
@@ -201,6 +246,6 @@ object ScamRules {
         if (otpAsk.any { text.contains(it) } && !text.contains("do not share") && !text.contains("don't share") && !text.contains("never share")) {
             score += 35; reasons.add(0, "Asks for your OTP. Never share an OTP.")
         }
-        return Result(score.coerceIn(0, 100), reasons.distinct(), urls)
+        return Result(score.coerceIn(0, 100), reasons.distinct(), urls, brandHitName, badHost)
     }
 }
