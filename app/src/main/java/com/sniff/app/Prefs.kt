@@ -89,4 +89,8 @@ object Prefs {
 
     fun isTrustedSender(set: Set<String>, sender: String?): Boolean =
         !sender.isNullOrBlank() && "$SENDER${normSender(sender)}" in set
+
+    /** Prominent-disclosure consent for the Accessibility service (Google policy). */
+    fun a11yConsent(ctx: Context): Boolean = sp(ctx).getBoolean("a11y_consent", false)
+    fun setA11yConsent(ctx: Context, on: Boolean) { sp(ctx).edit().putBoolean("a11y_consent", on).apply() }
 }
