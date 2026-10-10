@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_title">హాయ్, నేను Sniff.</string>
+    <string name="hello_body">ఏదైనా మెసేజ్, లింక్ లేదా నంబర్ మీద అనుమానమా? నాకు చూపించండి. క్లిక్ చేయడం సురక్షితమో కాదో చెబుతాను.</string>
+    <string name="check_hint">అనుమానంగా ఉన్నదాన్ని ఇక్కడ పేస్ట్ లేదా షేర్ చేయండి</string>
+    <string name="check_button">చెక్ చేయండి</string>
+    <string name="paste_button">కాపీ చేసింది చెక్ చేయండి</string>
+    <string name="clipboard_empty">ఇంకా ఏమీ కాపీ చేయలేదు. ముందు మెసేజ్ లేదా లింక్ కాపీ చేయండి.</string>
+    <string name="checking">చూస్తున్నాను…</string>
+    <string name="protection_title">స్క్రీన్ రక్షణ</string>
+    <string name="protection_on">ఆన్‌లో ఉంది. మీ మెసేజ్‌లు, నోటిఫికేషన్‌లు, బ్రౌజర్‌లో స్కామ్‌ల కోసం చూస్తున్నాను.</string>
+    <string name="protection_off">ఆఫ్‌లో ఉంది. ఆన్ చేస్తే, స్క్రీన్ మీద స్కామ్ కనిపించగానే హెచ్చరిస్తాను.</string>
+    <string name="protection_paused_until">%1$s వరకు ఆపబడింది. ఇప్పుడు ఏదీ చెక్ చేయడం లేదు.</string>
+    <string name="protection_paused">మీరు మళ్లీ ఆన్ చేసే వరకు ఆపబడింది. ఇప్పుడు ఏదీ చెక్ చేయడం లేదు.</string>
+    <string name="turn_on">స్క్రీన్ రక్షణ ఆన్ చేయండి</string>
+    <string name="turn_off">స్క్రీన్ రక్షణ సెట్టింగ్‌లు</string>
+    <string name="pause_1h">1 గంట ఆపండి</string>
+    <string name="pause_forever">మళ్లీ ఆన్ చేసే వరకు ఆపండి</string>
+    <string name="resume">రక్షణ మళ్లీ ఆన్ చేయండి</string>
+    <string name="auto_close">ప్రమాదకర సైట్‌లను ఆటోమేటిక్‌గా మూసేయండి</string>
+    <string name="auto_close_sub">బ్రౌజర్‌లో స్కామ్ సైట్ తెరుచుకుంటే, దాన్ని మూసి మిమ్మల్ని సురక్షిత చోటుకు తీసుకెళ్తాను.</string>
+    <string name="language">హెచ్చరిక భాష</string>
+    <string name="red_flags">ప్రమాద సంకేతాలు</string>
+    <string name="what_to_do">ఏం చేయాలి</string>
+    <string name="blocked_title">Sniff ఒక ప్రమాదకర సైట్‌ను మూసేసింది.</string>
+    <string name="blocked_tip">అక్కడ పాస్‌వర్డ్, OTP, PIN లేదా కార్డ్ నంబర్ ఇవ్వకండి. ఇప్పటికే ఇచ్చి ఉంటే, వెంటనే మీ బ్యాంక్‌కు లేదా 1930కు కాల్ చేయండి.</string>
+    <string name="blocked_reason_default">ఈ సైట్ స్కామ్‌లా ఉంది.</string>
+    <string name="go_real">అసలు సైట్‌కు వెళ్లండి</string>
+    <string name="go_safe">సురక్షితంగా వెనక్కి వెళ్లండి</string>
+
+    <string name="verdict_scam">క్లిక్ చేయకండి. రిప్లై ఇవ్వకండి.</string>
+    <string name="verdict_sus">జాగ్రత్తగా ఉండండి.</string>
+    <string name="verdict_safe">తెరవడం సురక్షితం.</string>
+    <string name="plain_scam">ఇది స్కామ్‌లా ఉంది.</string>
+    <string name="plain_sus">ఇక్కడ ఏదో సరిగ్గా లేదు. ఏదైనా చేసే ముందు చెక్ చేసుకోండి.</string>
+    <string name="plain_safe">ఇందులో ప్రమాదకరమైనది ఏదీ కనిపించలేదు.</string>
+    <string name="plain_safe_offline">స్పష్టమైన స్కామ్ సంకేతాలు లేవు. Sniff AI అందుబాటులో లేదు, కాబట్టి ఇది ఫోన్‌లో చేసిన త్వరిత చెక్ మాత్రమే.</string>
+    <string name="todo_offline">ఏ లింక్ తెరవకండి, రిప్లై ఇవ్వకండి, డబ్బు పంపకండి.</string>
+    <string name="source_quick">ఫోన్‌లో త్వరిత చెక్. Sniff AI ఇంకా జాగ్రత్తగా చూస్తోంది…</string>
+    <string name="source_ai">Sniff AI చెక్ చేసింది. మీ మెసేజ్ ఎక్కడా సేవ్ కాదు.</string>
+    <string name="source_offline">ఫోన్‌లో త్వరిత చెక్ (ఆఫ్‌లైన్).</string>
+    <string name="source_trusted">మీరు దీన్ని నమ్మదగినదిగా గుర్తించారు, కాబట్టి Sniff హెచ్చరించదు.</string>
+
+    <string name="banner_link">ఈ లింక్ క్లిక్ చేయకండి</string>
+    <string name="banner_scam">ఇది స్కామ్. రిప్లై ఇవ్వకండి.</string>
+    <string name="banner_careful">జాగ్రత్త</string>
+    <string name="banner_reason_default">ఇది స్కామ్ కావచ్చని Sniff అనుకుంటోంది.</string>
+    <string name="banner_closed">Sniff ప్రమాదకర సైట్‌ను మూసేసింది</string>
+    <string name="banner_closed_body">%1$s, %2$s లాగా నటిస్తోంది. అసలు సైట్ తెరిచాను.</string>
+    <string name="banner_again">ఈ సైట్ ఇంతకు ముందు మూసేయబడింది. ఏ వివరాలూ ఇవ్వకండి.</string>
+    <string name="dismiss">తీసేయండి</string>
+
+    <string name="get_help">సహాయం</string>
+    <string name="call_1930">1930కు కాల్ చేయండి</string>
+    <string name="report_online">cybercrime.gov.inలో ఫిర్యాదు చేయండి</string>
+    <string name="warn_family">కుటుంబానికి పంపడానికి హెచ్చరిక కాపీ చేయండి</string>
+    <string name="warn_family_text">Sniff స్కామ్ హెచ్చరిక: \"%1$s\"\n\n%2$s\nలింక్‌లు తెరవకండి, రిప్లై ఇవ్వకండి, OTP చెప్పకండి, డబ్బు పంపకండి. డబ్బు పోయి ఉంటే 1930కు కాల్ చేయండి లేదా cybercrime.gov.inలో ఫిర్యాదు చేయండి.</string>
+    <string name="copied">హెచ్చరిక కాపీ అయింది. ఎవరికి పంపాలో ఎంచుకోండి.</string>
+    <string name="trust_site">ఈ సైట్ సురక్షితం: %1$s</string>
+    <string name="trust_sender">ఈ పంపినవారిని నమ్మండి: %1$s</string>
+    <string name="trusted_done">సరే. %1$s గురించి Sniff మళ్లీ హెచ్చరించదు.</string>
+    <string name="no_dialer">ఫోన్ యాప్ దొరకలేదు. 1930 డయల్ చేయండి.</string>
+
+    <string name="stats">Sniff %1$s మెసేజ్‌లు చెక్ చేసింది · %2$s స్కామ్‌లు ఆపింది</string>
+    <string name="history">చరిత్ర</string>
+    <string name="trusted">నమ్మదగినవి</string>
+    <string name="history_empty">ఇంకా హెచ్చరికలు లేవు. Sniff హెచ్చరికలు ఇక్కడ కనిపిస్తాయి (ఈ ఫోన్‌లో మాత్రమే).</string>
+    <string name="trusted_empty">ఇంకా ఏదీ నమ్మదగినదిగా లేదు. హెచ్చరికలో \"ఈ సైట్ సురక్షితం\" నొక్కి జోడించండి.</string>
+    <string name="clear_all">అన్నీ తొలగించండి</string>
+    <string name="clear_history_q">ఈ ఫోన్ నుండి అన్ని హెచ్చరికలను తొలగించాలా?</string>
+    <string name="delete">తొలగించండి</string>
+    <string name="remove">తీసేయండి</string>
+    <string name="back">వెనక్కి</string>
+    <string name="kind_scam">స్కామ్</string>
+    <string name="kind_sus">జాగ్రత్త</string>
+    <string name="from_app">%1$sలో</string>
+    <string name="trusted_site_label">సైట్</string>
+    <string name="trusted_sender_label">పంపినవారు</string>
+
+    <string name="tile_on">రక్షణ ఆన్</string>
+    <string name="tile_paused">ఆపబడింది</string>
+    <string name="tile_off">ఆఫ్ · సెటప్ కోసం నొక్కండి</string>
+</resources>
