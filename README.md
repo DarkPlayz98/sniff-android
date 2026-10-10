@@ -28,13 +28,18 @@ Web version: https://sniff-orpin.vercel.app
 
 ## Build
 
-GitHub Actions (`.github/workflows/build.yml`) builds a signed release APK on every push to `main` and publishes it as a GitHub Release asset (`sniff-vX.Y.Z.apk`). Bump `VERSION` in the workflow for a new release.
+GitHub Actions (`.github/workflows/build.yml`) builds an **unsigned** release APK (published as a temporary `unsigned-vX.Y.Z` prerelease). The maintainer downloads it, signs it offline with the private release key, and commits the signed file to `dist/sniff-vX.Y.Z.apk`; a push to `main` containing that file publishes it as the GitHub Release `vX.Y.Z` (asset `sniff-vX.Y.Z.apk`).
 
-Locally: JDK 17 + Android SDK 35, then `gradle assembleRelease` (Gradle 8.9, AGP 8.7.3, Kotlin 2.0.21). No third-party libraries.
+Locally: JDK 17 + Android SDK 35, then `gradle assembleRelease` (Gradle 8.9, AGP 8.7.3, Kotlin 2.0.21). No third-party libraries. Without a local keystore this produces `app-release-unsigned.apk`.
 
-### Signing (MVP only)
+### Signing
 
-The release keystore is committed at `keystore/sniff-release.jks` (PKCS12, alias `sniff`) and its password is in the workflow env. **This is only acceptable for side-loaded test builds.** Before any Play Store upload, create a new keystore, store it and its password as repository secrets, and remove the committed one (or use Play App Signing with a private upload key).
+Releases are signed locally by the maintainer with `apksigner` (APK Signature Scheme v2 + v3). **The private key and its password are never stored in this repository or in CI.**
+
+Release signing certificate SHA-256 (from v0.5.0):
+`C6:D8:6E:CC:4F:23:38:75:9F:D7:60:8E:FC:9C:4C:46:91:63:91:2A:C4:81:D2:95:0F:86:86:A0:C2:9C:B8:84`
+
+> **v0.5.0 uses a new signing key:** uninstall the old Sniff once, then install v0.5.0. (Versions up to v0.4.0 were signed with a test key that has been retired.)
 
 ## Google Play note
 
