@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Don\'t enter a password, OTP, PIN or card number there. If you already did, call your bank or 1930 now."
+                android:text="@string/blocked_tip"
                 android:textColor="@color/muted"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -64,15 +64,52 @@
             android:id="@+id/b_real"
             style="@style/SniffPillDark"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:text="@string/go_real" />
         <Button
             android:id="@+id/b_safe"
             style="@style/SniffPillGlass"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/go_safe" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/b_call"
+                style="@style/SniffPillGlass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:text="@string/call_1930"
+                android:textSize="14sp" />
+            <Button
+                android:id="@+id/b_report"
+                style="@style/SniffPillGlass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1.4"
+                android:maxLines="2"
+                android:text="@string/report_online"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/b_trust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:textColor="@color/muted"
+            android:textSize="13.5sp" />
     </LinearLayout>
 </ScrollView>
