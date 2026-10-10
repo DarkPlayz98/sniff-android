@@ -17,6 +17,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.text.format.DateFormat
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
@@ -66,7 +67,11 @@ class MainActivity : Activity() {
     private lateinit var stats: TextView
     private lateinit var pauseRow: View
     private lateinit var resumeBtn: Button
+    private lateinit var statusPill: Button
+    private lateinit var finishSetup: Button
+    private var appBanner: OverlayBanner? = null
     private var checkSeq = 0
+    private val pauseTick = Runnable { if (!isFinishing && !isDestroyed) refreshStatus() }
 
     // what the current verdict is about (for "This is safe" and "warn family")
     private var curText = ""
@@ -100,6 +105,11 @@ class MainActivity : Activity() {
         stats = findViewById(R.id.stats)
         pauseRow = findViewById(R.id.pause_row)
         resumeBtn = findViewById(R.id.resume)
+        statusPill = findViewById(R.id.status_pill)
+        finishSetup = findViewById(R.id.finish_setup)
+        statusPill.setOnClickListener { onPillTap() }
+        finishSetup.setOnClickListener { startActivity(Intent(this, SetupActivity::class.java)) }
+        findViewById<Button>(R.id.test_sniff).setOnClickListener { testSniff() }
 
         Alerts.ensureChannel(this)
         SniffApi.warmUp()
@@ -143,7 +153,48 @@ class MainActivity : Activity() {
         findViewById<Button>(R.id.v_family).setOnClickListener { warnFamily() }
 
         // a fresh launch (not a rotation / language change) acts on what it was opened with
-        if (savedInstanceState == null) handleIntent(intent)
+        if (savedInstanceState == null) {
+            val hasText = intent?.action == Intent.ACTION_SEND || intent?.action == Intent.ACTION_PROCESS_TEXT ||
+                intent?.hasExtra(EXTRA_TEXT) == true
+            handleIntent(intent)
+            // first launch: walk through the 3 setup steps once (home re-offers them if anything is off)
+            if (!hasText && !Prefs.setupSeen(this) && !Setup.allDone(this)) {
+                startActivity(Intent(this, SetupActivity::class.java))
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        appBanner?.release()
+        appBanner = null
+        super.onDestroy()
+    }
+
+    /** The status pill fixes whatever is missing in one tap. */
+    private fun onPillTap() {
+        when {
+            !isServiceEnabled(this) -> SetupActivity.openAccessibility(this)
+            Prefs.isPaused(this) -> { Prefs.resume(this); refreshStatus() }
+            !Setup.allDone(this) -> startActivity(Intent(this, SetupActivity::class.java))
+            else -> Toast.makeText(this, R.string.status_all_good, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /** Shows a sample scam warning so the user knows what a real alert looks like. */
+    private fun testSniff() {
+        val sample = getString(R.string.test_sample)
+        val svc = SniffAccessibilityService.instance
+        if (svc != null) { svc.showTestBanner(sample); return }
+        if (Setup.overlayOn(this)) {
+            val b = appBanner ?: OverlayBanner(applicationContext, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
+                .also { appBanner = it }
+            b.show("sniff-test", getString(R.string.banner_link), getString(R.string.test_reason), true,
+                onTap = { if (!isFinishing && !isDestroyed) { input.setText(sample); runCheck() } },
+                onFail = { Toast.makeText(this, R.string.test_needs_setup, Toast.LENGTH_LONG).show() })
+            return
+        }
+        Toast.makeText(this, R.string.test_needs_setup, Toast.LENGTH_LONG).show()
+        startActivity(Intent(this, SetupActivity::class.java))
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -181,15 +232,6 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         refreshStatus()
-        maybeAskNotifications()
-    }
-
-    /** Notifications are only a fallback when the banner can't be shown: ask once, after protection is on. */
-    private fun maybeAskNotifications() {
-        if (Build.VERSION.SDK_INT < 33 || !isServiceEnabled(this)) return
-        if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) return
-        if (!Prefs.markAskedNotifications(this)) return
-        try { requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 7) } catch (_: Throwable) {}
     }
 
     private fun refreshStatus() {
@@ -210,6 +252,18 @@ class MainActivity : Activity() {
         toggle.text = getString(if (on) R.string.turn_off else R.string.turn_on)
         pauseRow.visibility = if (on && !paused) View.VISIBLE else View.GONE
         resumeBtn.visibility = if (paused) View.VISIBLE else View.GONE
+        statusPill.text = when {
+            !on -> getString(R.string.status_off)
+            paused && until == Long.MAX_VALUE -> getString(R.string.status_paused)
+            paused -> getString(R.string.status_paused_until, DateFormat.getTimeFormat(this).format(Date(until)))
+            else -> getString(R.string.status_on)
+        }
+        statusPill.backgroundTintList = statusDot.backgroundTintList
+        statusPill.contentDescription = statusPill.text
+        finishSetup.visibility = if (Setup.allDone(this)) View.GONE else View.VISIBLE
+        // a timed pause ends on its own: refresh the pill when it does
+        statusPill.removeCallbacks(pauseTick)
+        if (paused && until != Long.MAX_VALUE) statusPill.postDelayed(pauseTick, (until - System.currentTimeMillis()).coerceIn(1000L, 60 * 60 * 1000L) + 500)
         val nf = NumberFormat.getIntegerInstance()
         stats.text = getString(R.string.stats, nf.format(Prefs.checked(this)), nf.format(Prefs.blocked(this)))
     }
@@ -236,22 +290,7 @@ class MainActivity : Activity() {
             .show()
     }
 
-    private fun openAccessibility() {
-        // Deep link straight to Sniff's switch where the phone supports it, else the Accessibility list
-        val cn = ComponentName(this, SniffAccessibilityService::class.java).flattenToString()
-        val direct = Intent("android.settings.ACCESSIBILITY_DETAILS_SETTINGS")
-            .putExtra(Intent.EXTRA_COMPONENT_NAME, cn)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        val tries = listOf(
-            direct,
-            Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-            Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
-        for (t in tries) {
-            if (Build.VERSION.SDK_INT < 33 && t === direct) continue   // details page exists from Android 13
-            try { startActivity(t); return } catch (_: Throwable) {}
-        }
-    }
+    private fun openAccessibility() = SetupActivity.openAccessibility(this)
 
     private fun openUrl(url: String) {
         try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } catch (_: Throwable) {}
