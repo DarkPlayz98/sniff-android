@@ -88,11 +88,10 @@ class OverlayBanner(private val ctx: Context) {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun addBanner(key: String, title: String, reason: String, scam: Boolean) {
-        val blur = blurSupported()
         val radius = dp(24f)
         val glass = GradientDrawable().apply {
             cornerRadius = radius
-            setColor(if (blur) 0xB3FFFFFF.toInt() else 0xF2FBFAF8.toInt())   // ~70% white with blur, frosted fallback
+            setColor(0xEDFBFAF8.toInt())   // frosted white glass card, no screen blur
             setStroke(maxOf(1, dpi(0.75f)), 0xE6FFFFFF.toInt())
         }
         val card = LinearLayout(ctx).apply {
@@ -205,11 +204,7 @@ class OverlayBanner(private val ctx: Context) {
             gravity = Gravity.TOP
             y = statusBarHeight()
             windowAnimations = 0
-            if (blur && scam && Build.VERSION.SDK_INT >= 31) {
-                // real blur of what's behind: soft, so the scam underneath goes out of focus while the warning is up
-                flags = flags or WindowManager.LayoutParams.FLAG_BLUR_BEHIND
-                blurBehindRadius = dpi(6f)
-            }
+            // No FLAG_BLUR_BEHIND: on overlay windows it blurs the whole screen, which users found jarring.
         }
 
         card.alpha = 0f
