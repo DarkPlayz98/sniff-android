@@ -9,8 +9,7 @@ permissions:
   contents: write
 
 env:
-  VERSION: "0.4.0"
-  SNIFF_KEYSTORE_PASSWORD: "sniff-mvp-2026"   # MVP only: move to a repo secret before Play Store
+  VERSION: "0.5.0"
 
 jobs:
   build:
@@ -27,7 +26,17 @@ jobs:
         with:
           gradle-version: "8.9"
 
+      - name: Restore signing key
+        env:
+          SNIFF_KEYSTORE_B64: ${{ secrets.SNIFF_KEYSTORE_B64 }}
+        run: |
+          if [ -z "$SNIFF_KEYSTORE_B64" ]; then echo "Missing repo secret SNIFF_KEYSTORE_B64" | tee build.log; exit 1; fi
+          mkdir -p keystore
+          echo "$SNIFF_KEYSTORE_B64" | base64 -d > keystore/release.p12
+
       - name: Build release APK
+        env:
+          SNIFF_KEYSTORE_PASSWORD: ${{ secrets.SNIFF_KEYSTORE_PASSWORD }}
         run: |
           set -o pipefail
           gradle --no-daemon --stacktrace assembleRelease -PappVersion=$VERSION 2>&1 | tee build.log
