@@ -9,7 +9,7 @@
     <string name="hello_body">Not sure about a message, link or number? Show me. I\'ll tell you if it\'s safe to click.</string>
     <string name="check_hint">Paste or share anything suspicious</string>
     <string name="check_button">Check it</string>
-    <string name="paste_button">Check clipboard</string>
+    <string name="paste_button">Paste &amp; check</string>
     <string name="clipboard_empty">Nothing copied yet. Copy a message or link first.</string>
     <string name="checking">Let me look at this…</string>
     <string name="protection_title">Screen protection</string>
@@ -102,4 +102,34 @@
     <string name="tile_on">Protecting</string>
     <string name="tile_paused">Paused</string>
     <string name="tile_off">Off · tap to set up</string>
+    <string name="setup_title">Let\'s keep you safe</string>
+    <string name="setup_sub">Three quick switches. Tap each one, turn it on, then come back here.</string>
+    <string name="step_a11y">Turn on screen protection</string>
+    <string name="step_a11y_sub">Lets Sniff spot scam messages and links on your screen.</string>
+    <string name="step_a11y_hint">Switch greyed out? Open App info for Sniff, tap ⋮ (top right), choose "Allow restricted settings", then try again.</string>
+    <string name="step_overlay">Allow alerts on top</string>
+    <string name="step_overlay_sub">Lets Sniff show a warning over any app.</string>
+    <string name="step_notif">Allow notifications</string>
+    <string name="step_notif_sub">A backup, in case a warning can\'t be shown on screen.</string>
+    <string name="step_done">Done</string>
+    <string name="step_todo">Not done yet. Tap to turn on.</string>
+    <string name="setup_done_title">You\'re protected</string>
+    <string name="setup_done_body">Sniff is now watching for scams. Taking you home…</string>
+    <string name="go_home">Go to home</string>
+    <string name="skip_setup">Skip for now</string>
+    <string name="finish_setup">Finish setup</string>
+    <string name="status_on">Protected</string>
+    <string name="status_off">Off: tap to fix</string>
+    <string name="status_paused">Paused: tap to resume</string>
+    <string name="status_paused_until">Paused until %1$s</string>
+    <string name="status_all_good">All set. Sniff is protecting you.</string>
+    <string name="test_button">Test Sniff</string>
+    <string name="test_reason">This is only a test. A real warning looks like this.</string>
+    <string name="test_needs_setup">Turn on screen protection or "Allow alerts on top" first.</string>
+    <string name="test_sample" translatable="false">Dear customer, your SBI account will be blocked today. Update your KYC now: http://sbi-kyc-update.xyz/login</string>
+    <string name="disclosure_title">Before you turn on screen protection</string>
+    <string name="disclosure_body"><b>What Sniff reads:</b> the text on your screen and in new notifications, using Android\'s Accessibility setting, only to spot scam messages and phishing links. It skips password fields, keyboards and banking/UPI apps.\n\n<b>What Sniff does:</b> shows you a warning, and can close a dangerous website by pressing Back.\n\n<b>What is sent:</b> only the text or link of a suspicious message, to Sniff\'s own checker. Nothing is sold or shared. Your history stays on this phone.\n\nPrivacy policy: sniff-orpin.vercel.app</string>
+    <string name="disclosure_agree">Agree &amp; continue</string>
+    <string name="disclosure_not_now">Not now</string>
+    <string name="disclosure_privacy">Privacy policy</string>
 </resources>
