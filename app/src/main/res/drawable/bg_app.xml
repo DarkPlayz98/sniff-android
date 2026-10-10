@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Web .x-bg: warm cream to lilac to pale blue wash with soft colour blooms -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="315" android:startColor="#FBF6EE" android:centerColor="#F6EEF0" android:endColor="#EBF2F9" android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial" android:gradientRadius="320dp" android:centerX="0.15" android:centerY="0.12"
+                android:startColor="#80FFD8C2" android:endColor="#00FFD8C2" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial" android:gradientRadius="300dp" android:centerX="0.9" android:centerY="0.28"
+                android:startColor="#66E0D6FA" android:endColor="#00E0D6FA" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial" android:gradientRadius="360dp" android:centerX="0.75" android:centerY="0.88"
+                android:startColor="#70CEE2F8" android:endColor="#00CEE2F8" />
+        </shape>
+    </item>
+</layer-list>
