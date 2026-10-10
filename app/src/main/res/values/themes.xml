@@ -11,6 +11,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColorPrimary">@color/ink</item>
         <item name="android:textColorHint">@color/placeholder</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
     <style name="SniffSay">
         <item name="android:fontFamily">@font/instrument_serif</item>
@@ -36,10 +38,14 @@
         <item name="android:background">@drawable/bg_pill_dark</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/on_pill</item>
         <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:minHeight">56dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
     <style name="SniffPillGlass">
         <item name="android:background">@drawable/bg_pill_glass</item>
@@ -49,5 +55,16 @@
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:minHeight">50dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+    <style name="SniffChip" parent="SniffPillGlass">
+        <item name="android:minHeight">44dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:maxLines">1</item>
     </style>
 </resources>
