@@ -74,7 +74,7 @@ object History {
         val isNew = idx < 0
         if (!isNew) {
             val old = list.removeAt(idx)
-            list.add(0, e.copy(time = old.time))
+            list.add(0, e.copy(time = old.time, text = e.text.take(600)))
         } else {
             list.add(0, e.copy(text = e.text.take(600)))
             while (list.size > MAX) list.removeAt(list.size - 1)
