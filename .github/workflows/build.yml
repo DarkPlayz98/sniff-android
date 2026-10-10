@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 env:
-  VERSION: "0.1.0"
+  VERSION: "0.2.0"
   SNIFF_KEYSTORE_PASSWORD: "sniff-mvp-2026"   # MVP only: move to a repo secret before Play Store
 
 jobs:
