@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_title">नमस्ते, मैं Sniff हूँ।</string>
+    <string name="hello_body">किसी मैसेज, लिंक या नंबर पर शक है? मुझे दिखाइए। मैं बताऊँगा कि क्लिक करना सुरक्षित है या नहीं।</string>
+    <string name="check_hint">कोई भी शक वाला मैसेज यहाँ पेस्ट या शेयर करें</string>
+    <string name="check_button">जाँचें</string>
+    <string name="paste_button">कॉपी किया हुआ जाँचें</string>
+    <string name="clipboard_empty">अभी कुछ कॉपी नहीं किया है। पहले मैसेज या लिंक कॉपी करें।</string>
+    <string name="checking">देख रहा हूँ…</string>
+    <string name="protection_title">स्क्रीन सुरक्षा</string>
+    <string name="protection_on">चालू। मैं आपके मैसेज, नोटिफ़िकेशन और ब्राउज़र पर स्कैम के लिए नज़र रख रहा हूँ।</string>
+    <string name="protection_off">बंद। इसे चालू करें, स्क्रीन पर स्कैम आते ही मैं आपको चेतावनी दूँगा।</string>
+    <string name="protection_paused_until">%1$s तक रुका हुआ है। अभी मैं कुछ नहीं जाँच रहा।</string>
+    <string name="protection_paused">आपके दोबारा चालू करने तक रुका हुआ है। अभी मैं कुछ नहीं जाँच रहा।</string>
+    <string name="turn_on">स्क्रीन सुरक्षा चालू करें</string>
+    <string name="turn_off">स्क्रीन सुरक्षा सेटिंग</string>
+    <string name="pause_1h">1 घंटे के लिए रोकें</string>
+    <string name="pause_forever">दोबारा चालू करने तक रोकें</string>
+    <string name="resume">सुरक्षा फिर चालू करें</string>
+    <string name="auto_close">खतरनाक साइटें अपने आप बंद करें</string>
+    <string name="auto_close_sub">ब्राउज़र में स्कैम साइट खुलने पर मैं उसे बंद करके आपको सुरक्षित जगह ले जाऊँगा।</string>
+    <string name="language">चेतावनी की भाषा</string>
+    <string name="red_flags">खतरे के संकेत</string>
+    <string name="what_to_do">क्या करें</string>
+    <string name="blocked_title">Sniff ने एक खतरनाक साइट बंद की।</string>
+    <string name="blocked_tip">वहाँ पासवर्ड, OTP, PIN या कार्ड नंबर न डालें। अगर डाल दिया है, तो तुरंत अपने बैंक या 1930 पर कॉल करें।</string>
+    <string name="blocked_reason_default">यह साइट स्कैम लगती है।</string>
+    <string name="go_real">असली साइट पर जाएँ</string>
+    <string name="go_safe">सुरक्षित जगह वापस जाएँ</string>
+
+    <string name="verdict_scam">क्लिक न करें। जवाब न दें।</string>
+    <string name="verdict_sus">सावधान रहें।</string>
+    <string name="verdict_safe">खोलना सुरक्षित है।</string>
+    <string name="plain_scam">यह स्कैम लगता है।</string>
+    <string name="plain_sus">यहाँ कुछ ठीक नहीं लग रहा। कुछ भी करने से पहले जाँच लें।</string>
+    <string name="plain_safe">मुझे इसमें कुछ खतरनाक नहीं मिला।</string>
+    <string name="plain_safe_offline">स्कैम के साफ़ संकेत नहीं मिले। Sniff AI से जुड़ नहीं पाया, इसलिए यह सिर्फ़ फ़ोन पर की गई जल्दी जाँच है।</string>
+    <string name="todo_offline">कोई लिंक न खोलें, जवाब न दें, पैसे न भेजें।</string>
+    <string name="source_quick">फ़ोन पर जल्दी जाँच। Sniff AI ध्यान से देख रहा है…</string>
+    <string name="source_ai">Sniff AI ने जाँचा। आपका मैसेज कहीं सेव नहीं होता।</string>
+    <string name="source_offline">फ़ोन पर जल्दी जाँच (ऑफ़लाइन)।</string>
+    <string name="source_trusted">आपने इसे भरोसेमंद बताया है, इसलिए Sniff इस पर चेतावनी नहीं देगा।</string>
+
+    <string name="banner_link">इस लिंक पर क्लिक न करें</string>
+    <string name="banner_scam">यह स्कैम है। जवाब न दें।</string>
+    <string name="banner_careful">सावधान रहें</string>
+    <string name="banner_reason_default">Sniff को लगता है कि यह स्कैम हो सकता है।</string>
+    <string name="banner_closed">Sniff ने खतरनाक साइट बंद की</string>
+    <string name="banner_closed_body">%1$s, %2$s होने का नाटक कर रही थी। मैंने असली साइट खोल दी।</string>
+    <string name="banner_again">यह साइट पहले भी बंद की गई थी। कोई जानकारी न डालें।</string>
+    <string name="dismiss">हटाएँ</string>
+
+    <string name="get_help">मदद लें</string>
+    <string name="call_1930">1930 पर कॉल करें</string>
+    <string name="report_online">cybercrime.gov.in पर शिकायत करें</string>
+    <string name="warn_family">परिवार को भेजने के लिए चेतावनी कॉपी करें</string>
+    <string name="warn_family_text">Sniff की स्कैम चेतावनी: \"%1$s\"\n\n%2$s\nलिंक न खोलें, जवाब न दें, OTP न बताएँ, पैसे न भेजें। पैसे गए हों तो 1930 पर कॉल करें या cybercrime.gov.in पर शिकायत करें।</string>
+    <string name="copied">चेतावनी कॉपी हो गई। चुनें किसे भेजनी है।</string>
+    <string name="trust_site">यह साइट सुरक्षित है: %1$s</string>
+    <string name="trust_sender">इस भेजने वाले पर भरोसा करें: %1$s</string>
+    <string name="trusted_done">ठीक है। Sniff %1$s पर दोबारा चेतावनी नहीं देगा।</string>
+    <string name="no_dialer">फ़ोन ऐप नहीं मिला। 1930 डायल करें।</string>
+
+    <string name="stats">Sniff ने %1$s मैसेज जाँचे · %2$s स्कैम रोके</string>
+    <string name="history">इतिहास</string>
+    <string name="trusted">भरोसेमंद</string>
+    <string name="history_empty">अभी कोई चेतावनी नहीं। Sniff की चेतावनियाँ यहाँ दिखेंगी (सिर्फ़ इसी फ़ोन पर)।</string>
+    <string name="trusted_empty">अभी कुछ भरोसेमंद नहीं। किसी चेतावनी पर \"यह साइट सुरक्षित है\" दबाकर जोड़ें।</string>
+    <string name="clear_all">सब मिटाएँ</string>
+    <string name="clear_history_q">इस फ़ोन से सारी चेतावनियाँ मिटा दें?</string>
+    <string name="delete">मिटाएँ</string>
+    <string name="remove">हटाएँ</string>
+    <string name="back">वापस</string>
+    <string name="kind_scam">स्कैम</string>
+    <string name="kind_sus">सावधान</string>
+    <string name="from_app">%1$s में</string>
+    <string name="trusted_site_label">साइट</string>
+    <string name="trusted_sender_label">भेजने वाला</string>
+
+    <string name="tile_on">सुरक्षा चालू</string>
+    <string name="tile_paused">रुका हुआ</string>
+    <string name="tile_off">बंद · सेटअप के लिए दबाएँ</string>
+</resources>
