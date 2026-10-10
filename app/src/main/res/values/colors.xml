@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ink">#111111</color>
-    <color name="paper">#FAF9F6</color>
-    <color name="muted">#5F5F5F</color>
-    <color name="line">#E3E1DC</color>
-    <color name="danger">#D92D20</color>
-    <color name="safe">#12805C</color>
-    <color name="warn">#B54708</color>
+    <!-- Matches the web app (sniff-inline.css / assistant.css) -->
+    <color name="ink">#141414</color>
+    <color name="paper">#FAF7F2</color>
+    <color name="muted">#6B6B6B</color>
+    <color name="body">#2B2925</color>
+    <color name="placeholder">#9A9A9A</color>
+    <color name="line">#14141414</color>
+    <color name="accent">#FF5A1F</color>
+    <color name="danger">#C8372F</color>
+    <color name="warn">#B7741A</color>
+    <color name="safe">#2E8A5B</color>
     <color name="white">#FFFFFF</color>
 </resources>
