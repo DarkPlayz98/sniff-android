@@ -1,36 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sniff</string>
-    <string name="wordmark">sniff</string>
+    <string name="app_name" translatable="false">Sniff</string>
+    <string name="wordmark" translatable="false">sniff</string>
     <string name="service_label">Sniff scam warnings</string>
     <string name="service_summary">Warns you the moment a scam message or link is on your screen.</string>
-    <string name="service_description">Sniff reads the text that is visible on your screen and in new notifications so it can warn you about scam messages and links (fake KYC, bank, parcel, electricity bill, prize and UPI collect scams). It skips password fields and banking/UPI apps. Each new message or link is checked by Sniff AI; the text is not stored on your phone or on a server. If a browser opens a dangerous site, Sniff can close it and take you somewhere safe.</string>
+    <string name="service_description">Sniff reads the text that is visible on your screen and in new notifications so it can warn you about scam messages and links (fake KYC, bank, parcel, electricity bill, prize and UPI collect scams). It skips password fields, keyboards and banking/UPI apps. Each new message or link is checked by Sniff AI; the text is not stored on a server. Warnings are kept only on your phone, in Sniff\'s History, which you can clear. If a browser opens a dangerous site, Sniff can close it and take you somewhere safe.</string>
     <string name="hello_title">Hi, I\'m Sniff.</string>
     <string name="hello_body">Not sure about a message, link or number? Show me. I\'ll tell you if it\'s safe to click.</string>
     <string name="check_hint">Paste or share anything suspicious</string>
     <string name="check_button">Check it</string>
-    <string name="paste_button">Check what I copied</string>
+    <string name="paste_button">Check clipboard</string>
+    <string name="clipboard_empty">Nothing copied yet. Copy a message or link first.</string>
     <string name="checking">Let me look at this…</string>
     <string name="protection_title">Screen protection</string>
     <string name="protection_on">On. I\'m watching your messages, notifications and browser for scams.</string>
     <string name="protection_off">Off. Turn it on and I\'ll warn you the moment a scam shows up on your screen.</string>
+    <string name="protection_paused_until">Paused until %1$s. I\'m not checking anything right now.</string>
+    <string name="protection_paused">Paused until you turn me back on. I\'m not checking anything right now.</string>
     <string name="turn_on">Turn on screen protection</string>
     <string name="turn_off">Manage screen protection</string>
+    <string name="pause_1h">Pause 1 hour</string>
+    <string name="pause_forever">Pause until I resume</string>
+    <string name="resume">Resume protection</string>
     <string name="auto_close">Auto-close dangerous sites</string>
     <string name="auto_close_sub">If a browser opens a scam site, I\'ll close it and take you somewhere safe.</string>
+    <string name="language">Alert language</string>
     <string name="red_flags">Red flags</string>
     <string name="what_to_do">What to do</string>
     <string name="what_sniff_reads">What Sniff reads</string>
-    <string name="privacy_body">Sniff reads the text on your screen and in new notifications using Android\'s Accessibility setting. It never reads password fields and ignores banking and UPI apps. Each new message or link is checked by Sniff AI and is never stored.</string>
-    <string name="privacy_line">Checked by Sniff AI. Your messages are never stored.</string>
+    <string name="privacy_body">Sniff reads the text on your screen and in new notifications using Android\'s Accessibility setting. It never reads password fields or keyboards and ignores banking and UPI apps. Each new message or link is checked by Sniff AI and is never stored on a server. Warnings are saved only on this phone in History, and you can clear them any time.</string>
+    <string name="privacy_line">Checked by Sniff AI. Your messages are never stored on a server.</string>
     <string name="dialog_title">Turn on Sniff</string>
-    <string name="dialog_body">On the next screen, tap \"Sniff scam warnings\" (it may be under \"Installed apps\" or \"Downloaded apps\") and switch it on.\n\nSniff reads visible text only to spot scams. It skips passwords and banking/UPI apps, and stores nothing.</string>
+    <string name="dialog_body">On the next screen, tap \"Sniff scam warnings\" (it may be under \"Installed apps\" or \"Downloaded apps\") and switch it on.\n\nSniff reads visible text only to spot scams. It skips passwords, keyboards and banking/UPI apps.</string>
     <string name="dialog_ok">Open settings</string>
     <string name="dialog_cancel">Not now</string>
-    <string name="web_link">Sniff on the web: sniff-orpin.vercel.app</string>
+    <string name="web_link" translatable="false">Sniff on the web: sniff-orpin.vercel.app</string>
     <string name="channel_name">Scam warnings</string>
     <string name="channel_desc">Shown when a scam message or link is on your screen</string>
     <string name="blocked_title">Sniff closed a dangerous site.</string>
+    <string name="blocked_tip">Don\'t enter a password, OTP, PIN or card number there. If you already did, call your bank or 1930 now.</string>
+    <string name="blocked_unknown">unknown site</string>
+    <string name="blocked_reason_default">This site looks like a scam.</string>
     <string name="go_real">Go to the real site</string>
     <string name="go_safe">Go back to safety</string>
+
+    <!-- verdicts (same words as the web app) -->
+    <string name="verdict_scam">Don\'t click. Don\'t reply.</string>
+    <string name="verdict_sus">Be careful.</string>
+    <string name="verdict_safe">Safe to open.</string>
+    <string name="plain_scam">This looks like a scam.</string>
+    <string name="plain_sus">Something here doesn\'t add up. Check before you act.</string>
+    <string name="plain_safe">I didn\'t find anything risky in this.</string>
+    <string name="plain_safe_offline">No obvious scam signs. I couldn\'t reach Sniff AI, so this was a quick check only.</string>
+    <string name="todo_offline">Don\'t click any link, reply, or pay anything.</string>
+    <string name="source_quick">Quick check on your phone. Sniff AI is taking a closer look…</string>
+    <string name="source_ai">Checked by Sniff AI. Your message is never stored on a server.</string>
+    <string name="source_offline">Quick check on your phone (offline).</string>
+    <string name="source_trusted">You marked this as trusted, so Sniff won\'t warn about it.</string>
+
+    <!-- banner -->
+    <string name="banner_link">Don\'t click this link</string>
+    <string name="banner_scam">This is a scam. Don\'t reply.</string>
+    <string name="banner_careful">Be careful</string>
+    <string name="banner_reason_default">Sniff thinks this may be a scam.</string>
+    <string name="banner_closed">Sniff closed a dangerous site</string>
+    <string name="banner_closed_body">%1$s was pretending to be %2$s. I opened the real site.</string>
+    <string name="banner_again">This site was closed before. Don\'t enter any details.</string>
+    <string name="dismiss">Dismiss</string>
+
+    <!-- help + trust -->
+    <string name="get_help">Get help</string>
+    <string name="call_1930">Call 1930</string>
+    <string name="report_online">Report at cybercrime.gov.in</string>
+    <string name="warn_family">Copy warning to send to family</string>
+    <string name="warn_family_text">Scam alert from Sniff: \"%1$s\"\n\n%2$s\nDon\'t click links, reply, share an OTP or pay. If money was lost, call 1930 or report at cybercrime.gov.in.</string>
+    <string name="copied">Warning copied. Pick who to send it to.</string>
+    <string name="trust_site">This site is safe: %1$s</string>
+    <string name="trust_sender">Trust sender: %1$s</string>
+    <string name="trusted_done">Trusted. Sniff won\'t warn about %1$s again.</string>
+    <string name="no_dialer">No phone app found. Dial 1930.</string>
+
+    <!-- stats / history / trusted -->
+    <string name="stats">Sniff checked %1$s messages · blocked %2$s scams</string>
+    <string name="history">History</string>
+    <string name="trusted">Trusted</string>
+    <string name="history_empty">No warnings yet. When Sniff warns you, it shows up here (only on this phone).</string>
+    <string name="trusted_empty">Nothing trusted yet. Use \"This site is safe\" on a warning to add a site or sender.</string>
+    <string name="clear_all">Clear all</string>
+    <string name="clear_history_q">Delete all warnings from this phone?</string>
+    <string name="delete">Delete</string>
+    <string name="remove">Remove</string>
+    <string name="back">Back</string>
+    <string name="kind_scam">Scam</string>
+    <string name="kind_sus">Be careful</string>
+    <string name="from_app">in %1$s</string>
+    <string name="trusted_site_label">Site</string>
+    <string name="trusted_sender_label">Sender</string>
+
+    <!-- quick settings tile -->
+    <string name="tile_label">Sniff</string>
+    <string name="tile_on">Protecting</string>
+    <string name="tile_paused">Paused</string>
+    <string name="tile_off">Off · tap to set up</string>
 </resources>
