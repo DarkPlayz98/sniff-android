@@ -65,10 +65,10 @@ object Prefs {
     fun trusted(ctx: Context): Set<String> = HashSet(sp(ctx).getStringSet(TRUSTED, emptySet()) ?: emptySet())
 
     @Synchronized fun addTrusted(ctx: Context, entry: String) {
-        val s = trusted(ctx); s.add(entry); sp(ctx).edit().putStringSet(TRUSTED, s).apply()
+        val s = trusted(ctx).toMutableSet(); s.add(entry); sp(ctx).edit().putStringSet(TRUSTED, s).apply()
     }
     @Synchronized fun removeTrusted(ctx: Context, entry: String) {
-        val s = trusted(ctx); s.remove(entry); sp(ctx).edit().putStringSet(TRUSTED, s).apply()
+        val s = trusted(ctx).toMutableSet(); s.remove(entry); sp(ctx).edit().putStringSet(TRUSTED, s).apply()
     }
 
     fun normSender(s: String) = s.trim().lowercase(Locale.ROOT).replace(Regex("\\s+"), " ")
