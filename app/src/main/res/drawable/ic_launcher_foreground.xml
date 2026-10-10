@@ -2,15 +2,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
-    <!-- ring -->
-    <path android:fillColor="#00000000" android:strokeColor="#111111" android:strokeWidth="5"
-        android:pathData="M54,34a20,20 0,1 1,0 40a20,20 0,1 1,0 -40z" />
-    <!-- check -->
-    <path android:fillColor="#00000000" android:strokeColor="#111111" android:strokeWidth="5"
-        android:strokeLineCap="round" android:strokeLineJoin="round"
-        android:pathData="M45,54.5l6,6l12,-13" />
-    <!-- scan corner ticks -->
-    <path android:fillColor="#00000000" android:strokeColor="#111111" android:strokeWidth="3.5"
-        android:strokeLineCap="round"
-        android:pathData="M30,38v-8h8M70,30h8v8M78,70v8h-8M38,78h-8v-8" />
+    <!-- Sniff mark (web logo.svg geometry): white open ring + orange dot, inside the 66dp safe zone -->
+    <group android:scaleX="0.15" android:scaleY="0.15" android:translateX="15.600" android:translateY="15.600">
+        <path android:fillColor="#00000000" android:strokeColor="#FFFFFF" android:strokeWidth="58"
+            android:strokeLineCap="round" android:pathData="M383.0,240.4 A128,128 0 1,1 271.6,129.0" />
+        <path android:fillColor="#FF5A1F" android:pathData="M346.5,131.5a34,34 0 1,1 0,68a34,34 0 1,1 0,-68z" />
+    </group>
 </vector>
