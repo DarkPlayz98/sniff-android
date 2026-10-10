@@ -32,7 +32,11 @@ import kotlin.math.abs
  * Slides/fades in, auto-dismisses after 6 s, swipe up or tap X to dismiss, tap for details.
  * Uses TYPE_ACCESSIBILITY_OVERLAY (no extra permission).
  */
-class OverlayBanner(private val ctx: Context) {
+class OverlayBanner(
+    private val ctx: Context,
+    /** TYPE_ACCESSIBILITY_OVERLAY from the service; TYPE_APPLICATION_OVERLAY (needs "display over other apps") from the app. */
+    private val windowType: Int = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY
+) {
     private val wm = ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private val handler = Handler(Looper.getMainLooper())
     private var root: View? = null
@@ -197,7 +201,7 @@ class OverlayBanner(private val ctx: Context) {
         val lp = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+            windowType,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
