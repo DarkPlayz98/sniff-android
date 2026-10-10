@@ -34,11 +34,19 @@
                 android:textSize="32sp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/muted"
+            android:textSize="13.5sp" />
+
         <!-- greeting (.sn-hello) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="24dp"
             android:gravity="bottom"
             android:orientation="horizontal">
             <ImageView
@@ -100,7 +108,7 @@
             android:id="@+id/check"
             style="@style/SniffPillDark"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/check_button" />
 
@@ -108,7 +116,7 @@
             android:id="@+id/paste"
             style="@style/SniffPillGlass"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/paste_button" />
 
@@ -198,6 +206,63 @@
                         android:layout_marginTop="14dp"
                         android:textColor="@color/muted"
                         android:textSize="12.5sp" />
+                    <Button
+                        android:id="@+id/v_trust"
+                        style="@style/SniffPillGlass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+                    <LinearLayout
+                        android:id="@+id/v_help"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <TextView
+                            style="@style/SniffCaption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/get_help" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/v_call"
+                                style="@style/SniffPillDark"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:maxLines="2"
+                                android:text="@string/call_1930"
+                                android:textSize="14sp" />
+                            <Button
+                                android:id="@+id/v_report"
+                                style="@style/SniffPillGlass"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1.4"
+                                android:maxLines="2"
+                                android:text="@string/report_online"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/v_family"
+                            style="@style/SniffPillGlass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:maxLines="2"
+                            android:text="@string/warn_family"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -241,10 +306,49 @@
                 android:id="@+id/toggle"
                 style="@style/SniffPillDark"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="@string/turn_on"
                 android:textSize="15sp" />
+            <LinearLayout
+                android:id="@+id/pause_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/pause_1h"
+                    style="@style/SniffPillGlass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/pause_1h"
+                    android:textSize="14sp" />
+                <Button
+                    android:id="@+id/pause_forever"
+                    style="@style/SniffPillGlass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/pause_forever"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/resume"
+                style="@style/SniffPillGlass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/resume"
+                android:textSize="15sp"
+                android:visibility="gone" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -282,6 +386,76 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:checked="true" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/language"
+                android:textColor="@color/ink"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/lang_en"
+                    style="@style/SniffChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="English" />
+                <Button
+                    android:id="@+id/lang_hi"
+                    style="@style/SniffChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="हिन्दी" />
+                <Button
+                    android:id="@+id/lang_te"
+                    style="@style/SniffChip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="తెలుగు" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/line" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/open_history"
+                    style="@style/SniffPillGlass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/history"
+                    android:textSize="14sp" />
+                <Button
+                    android:id="@+id/open_trusted"
+                    style="@style/SniffPillGlass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/trusted"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
